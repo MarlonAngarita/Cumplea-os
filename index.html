@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Feliz Cumpleaños</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:Georgia, serif;
+}
+
+/* FONDO */
+
+body{
+
+background:
+radial-gradient(
+circle at center,
+#56008f 0%,
+#240046 45%,
+#050010 100%
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* CONTENEDOR */
+
+.card{
+
+position:relative;
+
+width:100vw;
+height:100vh;
+
+overflow:hidden;
+}
+
+/* IMAGEN DEL RAMO */
+
+.bouquet{
+
+position:absolute;
+
+left:50%;
+bottom:0;
+
+transform:translateX(-50%);
+
+width:min(95vw,520px);
+
+animation:
+floatBouquet 5s ease-in-out infinite;
+}
+
+.bouquet img{
+
+width:100%;
+display:block;
+
+filter:
+drop-shadow(0 0 25px #ff4fc0)
+drop-shadow(0 0 50px #ff4fc0);
+
+}
+
+/* TITULO */
+
+.title{
+
+position:absolute;
+
+top:8vh;
+left:50%;
+
+transform:translateX(-50%);
+
+width:95%;
+
+text-align:center;
+
+font-size:clamp(2.6rem,9vw,5rem);
+
+line-height:.95;
+
+font-weight:bold;
+
+color:white;
+
+opacity:0;
+
+text-shadow:
+0 0 10px #ff89da,
+0 0 20px #ff5bc7,
+0 0 40px #ff3bbd,
+0 0 80px #ff3bbd;
+}
+
+.title.show{
+opacity:1;
+}
+
+/* CORAZONES */
+
+.heart{
+
+position:absolute;
+
+font-size:2rem;
+
+color:#ff8bdc;
+
+text-shadow:
+0 0 10px #ff8bdc,
+0 0 20px #ff8bdc,
+0 0 40px #ff8bdc;
+
+animation:
+pulse 2s infinite;
+}
+
+/* PARTICULAS */
+
+.sparkle{
+
+position:absolute;
+
+width:4px;
+height:4px;
+
+border-radius:50%;
+
+background:white;
+
+box-shadow:
+0 0 10px #ff7ad7,
+0 0 20px #ff7ad7,
+0 0 40px #ff7ad7;
+
+animation:
+sparkleFloat linear infinite;
+}
+
+/* DESTELLOS */
+
+.star{
+
+position:absolute;
+
+color:white;
+
+font-size:12px;
+
+animation:
+twinkle 2s infinite;
+}
+
+/* ANIMACIONES */
+
+@keyframes pulse{
+
+0%,100%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.25);
+}
+}
+
+@keyframes twinkle{
+
+0%,100%{
+opacity:.2;
+}
+
+50%{
+opacity:1;
+}
+}
+
+@keyframes sparkleFloat{
+
+from{
+transform:translateY(0);
+opacity:0;
+}
+
+20%{
+opacity:1;
+}
+
+to{
+transform:translateY(-250px);
+opacity:0;
+}
+}
+
+@keyframes floatBouquet{
+
+0%,100%{
+transform:
+translateX(-50%)
+translateY(0);
+}
+
+50%{
+transform:
+translateX(-50%)
+translateY(-10px);
+}
+}
+
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<div class="title" id="title">
+Feliz<br>
+Cumpleaños
+</div>
+
+<div class="heart" style="top:13%;left:18%;">❤</div>
+<div class="heart" style="top:13%;right:18%;">❤</div>
+
+<div class="heart" style="top:28%;left:42%;">❤</div>
+
+<div class="bouquet">
+
+<img src="img/ramo.png" alt="Ramo">
+
+</div>
+
+</div>
+
+<script>
+
+/* TEXTO LETRA A LETRA */
+
+const text = "Feliz\nCumpleaños";
+
+const title = document.getElementById("title");
+
+title.innerHTML = "";
+
+setTimeout(()=>{
+
+title.classList.add("show");
+
+let i=0;
+
+const chars = text.split("");
+
+const timer = setInterval(()=>{
+
+if(i>=chars.length){
+
+clearInterval(timer);
+return;
+
+}
+
+title.innerHTML +=
+chars[i] === "\n"
+? "<br>"
+: chars[i];
+
+i++;
+
+},120);
+
+},1500);
+
+/* PARTICULAS */
+
+for(let i=0;i<120;i++){
+
+const s=document.createElement("div");
+
+s.className="sparkle";
+
+s.style.left=Math.random()*100+"vw";
+
+s.style.top=
+40+Math.random()*60+"vh";
+
+s.style.animationDuration=
+(4+Math.random()*5)+"s";
+
+s.style.animationDelay=
+Math.random()*5+"s";
+
+document.body.appendChild(s);
+
+}
+
+/* ESTRELLAS */
+
+for(let i=0;i<60;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.innerHTML="✦";
+
+star.style.left=Math.random()*100+"vw";
+
+star.style.top=Math.random()*70+"vh";
+
+star.style.animationDelay=
+Math.random()*2+"s";
+
+document.body.appendChild(star);
+
+}
+
+</script>
+
+</body>
+</html>
